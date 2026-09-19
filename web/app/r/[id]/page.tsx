@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import Card from "@/components/Card/Card";
+import CardActions from "@/components/Card/CardActions";
 import type { Recap } from "@/components/Card/types";
 import { redis, recapKey } from "@/lib/kv";
 
@@ -33,6 +34,7 @@ export default async function RecapPage({ params }: PageProps<"/r/[id]">) {
       <div className="w-full max-w-[min(600px,calc((100svh-7rem)*0.8))] min-w-[280px]">
         <Card recap={recap} />
       </div>
+      <CardActions fileName={`postgame-${recap.repo.replace(/[^\w.-]+/g, "-")}-${recap.startedAt.slice(0, 10)}.png`} />
       <p className="text-sm text-[#a3acb5]">
         Make your own: <code className="text-[#eab308]">npx postgame-cli</code>
       </p>

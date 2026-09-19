@@ -1,5 +1,7 @@
 export const SITE = "postgame-pied.vercel.app";
 
+export const CARD_ID = "pg-card"; // the element the PNG export captures
+
 export const duration = (min: number) => (min < 60 ? `${min}m` : `${Math.floor(min / 60)}h ${min % 60}m`);
 
 export const num = (n: number) => n.toLocaleString("en-US");

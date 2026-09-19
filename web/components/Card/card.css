@@ -17,6 +17,10 @@
 }
 .pg-card * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* PNG export: exact design size, no container math */
+.pg-export { width: 1080px; }
+.pg-export .pg-card { --u: 1px; }
+
 /* Pixel corners — 2-step staircase with box-shadow only (works in the OG generator too).
    Set --fill (inside) and --bd (border). The border draws outside the box. */
 .pg-card .px {
