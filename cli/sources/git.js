@@ -24,10 +24,13 @@ export function readGit(root, { from, to }) {
 
   const args = ['log', '--no-merges', '--numstat', '--pretty=format:%x1e%H%n%cI%n%s',
     `--since=${from.toISOString()}`, `--until=${to.toISOString()}`];
-  if (email) args.push(`--author=${email}`);
 
   let out;
-  try { out = git(root, args); } catch { return []; } // empty repo: no HEAD yet
+  try {
+    // Only your commits (team repos) — unless that finds none, e.g. you committed under another email.
+    out = email ? git(root, [...args, '--fixed-strings', `--author=${email}`]) : '';
+    if (!out.trim()) out = git(root, args);
+  } catch { return []; } // empty repo: no HEAD yet
 
   const events = [];
   for (const chunk of out.split('\x1e')) {

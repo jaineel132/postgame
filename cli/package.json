@@ -1,7 +1,8 @@
 {
   "name": "postgame",
-  "version": "0.0.1",
-  "description": "Spotify Wrapped for a single coding session — from your git history and Claude Code logs.",
+  "version": "0.1.0",
+  "description": "Spotify Wrapped for a single coding session — a shareable recap card from your git history and Claude Code logs.",
+  "keywords": ["git", "claude-code", "recap", "wrapped", "developer", "cli", "session"],
   "type": "module",
   "bin": {
     "postgame": "index.js"
@@ -15,5 +16,12 @@
   "engines": {
     "node": ">=18"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaineel132/postgame.git",
+    "directory": "cli"
+  },
+  "homepage": "https://postgame-pied.vercel.app",
+  "author": "jaineel132",
   "license": "MIT"
 }

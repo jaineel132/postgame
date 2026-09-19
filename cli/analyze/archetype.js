@@ -27,7 +27,7 @@ export function archetype(s) {
     ['Vibe Coded', has(s.promptsPerCommit) && s.promptsPerCommit > 8, () =>
       `${s.promptsPerCommit} prompts for every commit. Pure vibes.`],
     ['The Grind', true, () =>
-      `${duration(s.durationMin)}, ${plural(s.commits, 'commit')}, one step at a time.`],
+      `${s.durationMin ? `${duration(s.durationMin)}, ` : ''}${plural(s.commits, 'commit')}, one step at a time.`],
   ];
   const [title, , subtitle] = rules.find(([, match]) => match);
   return { title, subtitle: subtitle() };
