@@ -53,8 +53,7 @@ export default async function Home() {
           </h1>
 
           {/* MY TAGLINE — write your own words between the tags */}
-          <p className="max-w-xl text-lg text-[#10b981]">REPLACE ME</p>
-
+          <p className="max-w-xl text-lg text-[#10b981]">The 143-minute bug. The file that fought back. Your session isn&apos;t lines typed any more, it&apos;s prompts and test runs and the bit where you gave up and fixed it yourself.</p>
           <CopyCommand command="npx postgame-cli" />
 
           <div className="flex flex-wrap gap-4 pt-2">
