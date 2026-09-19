@@ -73,9 +73,14 @@ body {
 .reveal { perspective: 1800px; container-type: inline-size; }
 .reveal-inner {
   position: relative; transform-style: preserve-3d;
-  animation: flip 1s cubic-bezier(.3, 1.35, .55, 1) .35s both;   /* slight overshoot, then settles */
+  animation: flip 2s ease-out .3s both;
 }
-@keyframes flip { from { transform: rotateY(180deg); } }
+/* 2½ turns (starts face down), fast then slowing, a small overshoot, then settles face up */
+@keyframes flip {
+  0%   { transform: rotateY(900deg) scale(.85); }
+  82%  { transform: rotateY(-12deg) scale(1.02); }
+  100% { transform: rotateY(0deg) scale(1); }
+}
 .reveal-front, .reveal-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .reveal-back {
   --fill: #091310; --bd: #eab308;
@@ -86,7 +91,7 @@ body {
   background-image: radial-gradient(#1a2a22 1.5px, transparent 1.5px); background-size: 16px 16px;
 }
 /* buttons appear once the card has turned */
-.reveal-after { animation: fade-up .5s ease 1.25s both; }
+.reveal-after { animation: fade-up .5s ease 2.2s both; }
 @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } }
 
 @media (prefers-reduced-motion: reduce) {
