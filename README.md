@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://postgame-pied.vercel.app/r/2zmnpw"><b>▶ See a sample recap</b></a>
+  <a href="https://postgame-pied.vercel.app/r/h6fegm"><b>▶ See a sample recap</b></a>
 </p>
 
 ```
@@ -34,6 +34,7 @@ It's a highlight reel, not a report card. No scores, no productivity grading.
 | `npx postgame-cli --last 24` | Recap a fixed window, e.g. a whole hackathon |
 | `npx postgame-cli --from 2026-09-15T10:00 --to 2026-09-15T18:00` | Recap a past window |
 | `npx postgame-cli --dry-run` | Show exactly what would be uploaded, and upload nothing |
+| `npx postgame-cli --name "My Project"` | Show a different project name on the card (default: the folder name) |
 
 No Claude Code logs for your repo? It still works, with a git-only card.
 

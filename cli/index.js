@@ -21,6 +21,7 @@ try {
       last: { type: 'string' },
       from: { type: 'string' },
       to: { type: 'string' },
+      name: { type: 'string' },
       'dry-run': { type: 'boolean', default: false },
     },
   }));
@@ -36,6 +37,8 @@ const from = values.from ? new Date(values.from)
   : new Date(now - (values.last ? Number(values.last) : 24 * 30) * HOUR);
 const to = values.to ? new Date(values.to) : now;
 if (isNaN(from) || isNaN(to) || from >= to) die('bad time window — check --last / --from / --to.');
+const name = values.name?.trim() || path.basename(root); // --name: the project's real name when the folder is a shortcut
+if (name.length > 40) die('--name is too long (40 characters max).');
 
 const safeClaude = (win) => readClaude(root, win).catch(() => null);
 
@@ -90,7 +93,7 @@ const localIso = (d) => {
 // ---- stage 6: payload (architecture.md §5 — frozen after hour 7) ----
 const payload = {
   v: 1,
-  repo: path.basename(root),
+  repo: name,
   startedAt: localIso(session[0].ts),
   endedAt: localIso(session.at(-1).ts),
   durationMin: stats.durationMin,

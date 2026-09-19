@@ -15,6 +15,7 @@ The card shows the story of the session: your **boss fight** (the hardest stretc
 | `--last <hours>` | Recap a fixed window, e.g. `--last 24` for a whole hackathon |
 | `--from <date> --to <date>` | Recap a past window, e.g. `--from 2026-09-15T10:00 --to 2026-09-15T18:00` |
 | `--dry-run` | Print exactly what would be uploaded, and upload nothing |
+| `--name <text>` | Show a different project name on the card (default: the folder name) |
 
 With no flags it picks your most recent session with a commit in it (a pause of 30+ minutes ends a session).
 
