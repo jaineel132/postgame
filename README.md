@@ -40,7 +40,3 @@ No Claude Code logs for your repo? It still works, with a git-only card.
 ## Privacy
 
 Everything is computed locally from `git log` and `~/.claude/projects`. Only derived numbers, the repo name, file paths and one commit message are uploaded. No source code, no prompt text, no file contents. `--dry-run` prints the exact payload.
-
----
-
-Built during Hack Devengers 2.0. The planning docs ([prd.md](prd.md), [architecture.md](architecture.md), [plan.md](plan.md)) were written before the event, and all code was written inside the 24-hour window. Not affiliated with Anthropic.
