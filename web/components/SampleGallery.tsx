@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import Card from "@/components/Card/Card";
 import type { Recap } from "@/components/Card/types";
-import { SAMPLES } from "@/components/Card/format";
+import { SAMPLES, tierOf } from "@/components/Card/format";
 import { redis, recapKey } from "@/lib/kv";
 
 export async function getSamples() {
@@ -33,7 +33,9 @@ export default async function SampleGallery({ current }: { current?: string }) {
           style={{ "--i": i, "--r": `${(i - mid) * 8}deg`, "--y": `${(i - mid) ** 2 * 10}px` } as CSSProperties}
         >
           <Card recap={s.recap} idless />
-          <span className="deck-label font-pixel">{s.label.toUpperCase()} · {s.recap.repo}</span>
+          <span className="deck-label font-pixel" style={{ color: tierOf(s.recap.archetype.title).color }}>
+            {tierOf(s.recap.archetype.title).name} · {s.label.toUpperCase()} · {s.recap.repo}
+          </span>
         </Link>
       ))}
     </div>

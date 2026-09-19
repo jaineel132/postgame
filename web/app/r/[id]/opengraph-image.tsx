@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import type { Recap } from "@/components/Card/types";
-import { day, duration, num, splitPath } from "@/components/Card/format";
+import { day, duration, num, splitPath, tierOf } from "@/components/Card/format";
 import { redis, recapKey } from "@/lib/kv";
 import { C, OG_SIZE, OgFrame, OgSword, clip, ogFonts, px } from "@/lib/og";
 
@@ -23,6 +23,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
     );
   }
 
+  const tier = tierOf(recap.archetype.title);
   const boss = recap.bossFight;
   const ai = recap.ai.available ? recap.ai : null;
   const third = ai && ai.claudeLinesPct !== null
@@ -30,10 +31,19 @@ export default async function Image({ params }: { params: Promise<{ id: string }
     : { v: num(recap.stats.linesChanged), k: "lines changed" };
 
   return new ImageResponse(
-    <OgFrame left={`POSTGAME · ${clip(recap.repo, 22)}`} right={day(recap.startedAt)}>
+    <OgFrame
+      left={`POSTGAME · ${clip(recap.repo, 22)}`}
+      border={tier.color}
+      right={
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <span style={{ ...px(C.bg, tier.color, 3), fontFamily: "Pixel", fontSize: 14, color: tier.color, padding: "6px 10px" }}>{tier.name}</span>
+          <span>{day(recap.startedAt)}</span>
+        </div>
+      }
+    >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 40 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 22, width: 560 }}>
-          <div style={{ display: "flex", fontFamily: "Pixel", fontSize: 46, lineHeight: 1.3, color: C.gold, textShadow: "4px 4px 0 #000", textTransform: "uppercase" }}>
+          <div style={{ display: "flex", fontFamily: "Pixel", fontSize: 46, lineHeight: 1.3, color: tier.color, textShadow: "4px 4px 0 #000", textTransform: "uppercase" }}>
             {recap.archetype.title}
           </div>
           <div style={{ display: "flex", fontSize: 26, color: C.emerald }}>{clip(recap.archetype.subtitle, 90)}</div>

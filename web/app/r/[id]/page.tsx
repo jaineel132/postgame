@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import Card from "@/components/Card/Card";
 import CardActions from "@/components/Card/CardActions";
 import { Sword } from "@/components/Card/blocks";
 import SampleGallery from "@/components/SampleGallery";
-import { SAMPLES } from "@/components/Card/format";
+import { SAMPLES, tierOf } from "@/components/Card/format";
 import type { Recap } from "@/components/Card/types";
 import { redis, recapKey } from "@/lib/kv";
 
@@ -36,7 +37,10 @@ export default async function RecapPage({ params }: PageProps<"/r/[id]">) {
   return (
     <main className="flex flex-1 flex-col items-center gap-6 px-4 py-8 sm:py-12">
       {/* fit the whole card on screen: 600px wide at most, or less if the window is short */}
-      <div className="reveal w-full max-w-[min(600px,calc((100svh-7rem)*0.8))] min-w-[280px]">
+      <div
+        className="reveal w-full max-w-[min(600px,calc((100svh-7rem)*0.8))] min-w-[280px]"
+        style={{ "--tier": tierOf(recap.archetype.title).color } as CSSProperties}
+      >
         {/* the card lands face down, then flips over (CSS: .reveal in globals.css) */}
         <div className="reveal-inner">
           <div className="reveal-back pg-px" aria-hidden="true">

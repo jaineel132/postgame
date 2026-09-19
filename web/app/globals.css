@@ -70,7 +70,12 @@ body {
 }
 
 /* ---- Recap page: the card lands face down, then flips over ---- */
-.reveal { perspective: 1800px; container-type: inline-size; }
+.reveal { perspective: 1800px; container-type: inline-size; animation: land-glow 1.4s ease-out 2s both; }
+/* as the card lands, a flash in its rarity colour */
+@keyframes land-glow {
+  0%, 100% { filter: none; }
+  30% { filter: drop-shadow(0 0 36px var(--tier, #eab308)); }
+}
 .reveal-inner {
   position: relative; transform-style: preserve-3d;
   animation: flip 2s ease-out .3s both;
@@ -95,7 +100,7 @@ body {
 @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .deck-card, .reveal-inner, .reveal-after { animation: none; transition: none; }
+  .deck-card, .reveal, .reveal-inner, .reveal-after { animation: none; transition: none; }
 }
 
 /* Pixel-corner box for the site pages (fixed 4px steps). Set --fill and --bd. */

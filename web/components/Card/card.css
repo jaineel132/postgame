@@ -41,7 +41,7 @@
 .pg-card .sword { width: calc(26 * var(--u)); height: calc(26 * var(--u)); fill: currentColor; flex: none; }
 
 .pg-card .recap {
-  --fill: var(--bg); --bd: var(--gold);
+  --fill: var(--bg); --bd: var(--tier, var(--gold));   /* frame colour = rarity */
   flex: 1; min-width: 0; padding: calc(52 * var(--u)) calc(58 * var(--u));
   display: flex; flex-direction: column; justify-content: space-between;
   background-image: radial-gradient(#1a2a22 calc(1.5 * var(--u)), transparent calc(1.5 * var(--u)));
@@ -54,11 +54,16 @@
   padding-bottom: calc(20 * var(--u)); border-bottom: calc(2 * var(--u)) dashed var(--line);
   font-size: calc(22 * var(--u)); color: var(--muted);
 }
+.pg-card .top-right { display: flex; align-items: center; gap: calc(16 * var(--u)); }
+.pg-card .tier {
+  --fill: var(--bg); --bd: var(--tier, var(--gold)); --p: calc(3 * var(--u));
+  font-size: calc(13 * var(--u)); color: var(--tier, var(--gold)); padding: calc(6 * var(--u)) calc(10 * var(--u));
+}
 .pg-card .brand { display: flex; align-items: center; gap: calc(14 * var(--u)); font-size: calc(20 * var(--u)); color: var(--gold); }
 
 .pg-card .hero { display: flex; flex-direction: column; gap: calc(18 * var(--u)); }
 .pg-card .archetype-title {
-  font-size: calc(46 * var(--u)); line-height: 1.35; text-transform: uppercase; color: var(--gold);
+  font-size: calc(46 * var(--u)); line-height: 1.35; text-transform: uppercase; color: var(--tier, var(--gold));
   text-shadow: calc(4 * var(--u)) calc(4 * var(--u)) 0 #000;
 }
 .pg-card .subtitle { font-size: calc(24 * var(--u)); font-weight: 500; color: var(--emerald); }

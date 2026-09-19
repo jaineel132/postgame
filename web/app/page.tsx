@@ -4,7 +4,7 @@ import CopyCommand from "@/components/CopyCommand";
 import SampleGallery from "@/components/SampleGallery";
 import { Sword } from "@/components/Card/blocks";
 import type { Recap } from "@/components/Card/types";
-import { GITHUB_URL, NPM_URL, SAMPLE_ID } from "@/components/Card/format";
+import { GITHUB_URL, NPM_URL, SAMPLE_ID, TIERS, tierOf } from "@/components/Card/format";
 import { redis, recapKey } from "@/lib/kv";
 
 // Rebuild the page (and re-read the sample card) at most once an hour.
@@ -117,10 +117,20 @@ export default async function Home() {
           Plus a title picked by plain rules, not AI:{" "}
           {TITLES.map((t, i) => (
             <span key={t}>
-              <span className="text-[#eab308]">{t}</span>
+              <span style={{ color: tierOf(t).color }}>{t}</span>
               {i < TITLES.length - 1 ? " · " : "."}
             </span>
           ))}
+        </p>
+        <p className="text-[#a3acb5]">
+          Titles come in four rarities —{" "}
+          {TIERS.map((t, i) => (
+            <span key={t.name}>
+              <span className="font-pixel text-xs" style={{ color: t.color }}>{t.name}</span>
+              {i < TIERS.length - 1 ? ", " : ""}
+            </span>
+          ))}
+          {" "}— by how unusual that kind of session is, not how good it was. The link doesn&apos;t tell you which one you got: open it and watch the card turn over.
         </p>
       </section>
 

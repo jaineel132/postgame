@@ -1,5 +1,5 @@
 import type { Ai, Recap } from "./types";
-import { SITE, day, duration, num, plural, splitPath } from "./format";
+import { SITE, day, duration, num, plural, splitPath, tierOf } from "./format";
 
 export function Sword() {
   return (
@@ -14,7 +14,10 @@ export function Hero({ repo, startedAt, archetype }: Pick<Recap, "repo" | "start
     <>
       <div className="top-bar">
         <div className="brand pixel"><Sword />POSTGAME</div>
-        <div>{repo} · {day(startedAt)}</div>
+        <div className="top-right">
+          <span className="tier px pixel">{tierOf(archetype.title).name}</span>
+          <span>{repo} · {day(startedAt)}</span>
+        </div>
       </div>
       <div className="hero">
         <h1 className="archetype-title pixel">{archetype.title}</h1>

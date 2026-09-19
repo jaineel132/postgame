@@ -48,10 +48,10 @@ export function OgSword({ size = 26 }: { size?: number }) {
 }
 
 // Page background + the gold-bordered card, with a top bar (left / right) and the rest below.
-export function OgFrame({ left, right, children }: { left: string; right: string; children: ReactNode }) {
+export function OgFrame({ left, right, children, border = C.gold }: { left: string; right: ReactNode; children: ReactNode; border?: string }) {
   return (
     <div style={{ width: "100%", height: "100%", display: "flex", padding: 20, background: C.page, fontFamily: "Mono" }}>
-      <div style={{ ...px(C.bg, C.gold, 6), flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "40px 48px" }}>
+      <div style={{ ...px(C.bg, border, 6), flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "40px 48px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 22, color: C.muted }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14, fontFamily: "Pixel", fontSize: 20, color: C.gold }}>
             <OgSword />

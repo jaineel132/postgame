@@ -13,7 +13,23 @@ export const SAMPLE_ID = SAMPLES[0].id;
 export const GITHUB_URL = "https://github.com/jaineel132/postgame";
 export const NPM_URL = "https://www.npmjs.com/package/postgame-cli";
 
-export const duration = (min: number) => (min < 60 ? `${min}m` : `${Math.floor(min / 60)}h ${min % 60}m`);
+// Rarity = how unusual a title is, not how good the session was. The Grind is common because it's the fallback.
+const TIER = {
+  legendary: { name: "LEGENDARY", color: "#eab308" },
+  epic: { name: "EPIC", color: "#a855f7" },
+  rare: { name: "RARE", color: "#3b82f6" },
+  common: { name: "COMMON", color: "#94a3b8" },
+};
+const TIER_OF: Record<string, keyof typeof TIER> = {
+  "The Boss Fight": "legendary", "Clean Sweep": "legendary",
+  "Death by a Thousand Cuts": "epic", "Backseat Driver": "epic",
+  "Deep Work": "rare", "Autopilot": "rare", "Vibe Coded": "rare",
+  "The Scattergun": "common", "The Grind": "common",
+};
+export const TIERS = Object.values(TIER);
+export const tierOf = (title: string) => TIER[TIER_OF[title] ?? "common"];
+
+export const duration =(min: number) => (min < 60 ? `${min}m` : `${Math.floor(min / 60)}h ${min % 60}m`);
 
 export const num = (n: number) => n.toLocaleString("en-US");
 
