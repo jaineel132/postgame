@@ -1,6 +1,6 @@
 {
-  "name": "postgame",
-  "version": "0.1.0",
+  "name": "postgame-cli",
+  "version": "0.1.1",
   "description": "Spotify Wrapped for a single coding session — a shareable recap card from your git history and Claude Code logs.",
   "keywords": ["git", "claude-code", "recap", "wrapped", "developer", "cli", "session"],
   "type": "module",

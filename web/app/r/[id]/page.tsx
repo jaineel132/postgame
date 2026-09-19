@@ -30,7 +30,7 @@ export default async function RecapPage({ params }: PageProps<"/r/[id]">) {
         <Card recap={recap} />
       </div>
       <p className="text-sm text-[#a3acb5]">
-        Make your own: <code className="text-[#eab308]">npx postgame</code>
+        Make your own: <code className="text-[#eab308]">npx postgame-cli</code>
       </p>
     </main>
   );

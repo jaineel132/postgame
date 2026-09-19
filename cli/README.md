@@ -1,9 +1,9 @@
-# postgame
+# postgame-cli
 
 Spotify Wrapped for a single coding session. Run it in your project folder after a session with Claude Code, and get a link to a shareable recap card.
 
 ```
-npx postgame
+npx postgame-cli
 ```
 
 The card shows the story of the session: your **boss fight** (the hardest stretch between commits), your longest **flow state**, your **MVP file**, how much of the code **Claude wrote**, and how often you **stopped Claude**.

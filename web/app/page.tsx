@@ -5,7 +5,7 @@ export default function Home() {
       <p className="text-lg opacity-70">
         Spotify Wrapped for a single coding session. Coming soon.
       </p>
-      <code className="rounded bg-black/10 px-3 py-1 dark:bg-white/10">npx postgame</code>
+      <code className="rounded bg-black/10 px-3 py-1 dark:bg-white/10">npx postgame-cli</code>
     </main>
   );
 }

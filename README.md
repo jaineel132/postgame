@@ -11,7 +11,7 @@
 </p>
 
 ```
-npx postgame
+npx postgame-cli
 ```
 
 ## What it is
@@ -30,10 +30,10 @@ It's a highlight reel, not a report card. No scores, no productivity grading.
 
 | Command | What it does |
 |---|---|
-| `npx postgame` | Recap your most recent session and print a link |
-| `npx postgame --last 24` | Recap a fixed window, e.g. a whole hackathon |
-| `npx postgame --from 2026-09-15T10:00 --to 2026-09-15T18:00` | Recap a past window |
-| `npx postgame --dry-run` | Show exactly what would be uploaded, and upload nothing |
+| `npx postgame-cli` | Recap your most recent session and print a link |
+| `npx postgame-cli --last 24` | Recap a fixed window, e.g. a whole hackathon |
+| `npx postgame-cli --from 2026-09-15T10:00 --to 2026-09-15T18:00` | Recap a past window |
+| `npx postgame-cli --dry-run` | Show exactly what would be uploaded, and upload nothing |
 
 No Claude Code logs for your repo? It still works, with a git-only card.
 

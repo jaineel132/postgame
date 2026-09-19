@@ -104,5 +104,5 @@ function Small({ lbl, val, sub }: { lbl: string; val: string; sub: string }) {
 }
 
 export function Footer() {
-  return <div className="footer"><div className="cmd">{SITE} · npx postgame</div><div>Not affiliated with Anthropic</div></div>;
+  return <div className="footer"><div className="cmd">{SITE} · npx postgame-cli</div><div>Not affiliated with Anthropic</div></div>;
 }
