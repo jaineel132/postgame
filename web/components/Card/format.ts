@@ -13,7 +13,7 @@ export const SAMPLE_ID = SAMPLES[0].id;
 export const GITHUB_URL = "https://github.com/jaineel132/postgame";
 export const NPM_URL = "https://www.npmjs.com/package/postgame-cli";
 
-// Rarity = how unusual a title is, not how good the session was. The Grind is common because it's the fallback.
+// Rarity = how dramatic the session was, not how good it was. The Grind is common because it's the fallback.
 const TIER = {
   legendary: { name: "LEGENDARY", color: "#eab308" },
   epic: { name: "EPIC", color: "#a855f7" },

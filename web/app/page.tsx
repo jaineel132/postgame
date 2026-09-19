@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Card from "@/components/Card/Card";
+import CardReveal from "@/components/Card/CardReveal";
 import CopyCommand from "@/components/CopyCommand";
 import SampleGallery from "@/components/SampleGallery";
 import { Sword } from "@/components/Card/blocks";
@@ -75,7 +75,7 @@ export default async function Home() {
 
         {sample && (
           <Link href={`/r/${SAMPLE_ID}`} aria-label="Open the sample recap" className="mx-auto w-full max-w-[420px]">
-            <Card recap={sample} idless />
+            <CardReveal recap={sample} idless />
           </Link>
         )}
       </section>
@@ -130,7 +130,7 @@ export default async function Home() {
               {i < TIERS.length - 1 ? ", " : ""}
             </span>
           ))}
-          {" "}— by how unusual that kind of session is, not how good it was. The link doesn&apos;t tell you which one you got: open it and watch the card turn over.
+          {" "}— by how dramatic the session was, not how good it was. The link doesn&apos;t tell you which one you got: open it and watch the card turn over.
         </p>
       </section>
 
