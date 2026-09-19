@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import Card from "@/components/Card/Card";
 import type { Recap } from "@/components/Card/types";
@@ -14,21 +15,25 @@ export async function getSamples() {
   }
 }
 
-// A row of small real cards, like a level-select screen. Scrolls sideways on phones.
+// The samples as a fanned hand of cards: dealt in on load, hover/focus pops one out (CSS: .deck in globals.css).
 export default async function SampleGallery({ current }: { current?: string }) {
   const samples = (await getSamples()).filter((s) => s.id !== current);
   if (!samples.length) return null;
+  const mid = (samples.length - 1) / 2;
 
   return (
-    <div className="-mx-4 flex snap-x gap-6 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
-      {samples.map((s) => (
-        <Link key={s.id} href={`/r/${s.id}`} className="group flex w-[220px] shrink-0 snap-start flex-col gap-3 sm:w-auto">
-          <div className="transition-transform group-hover:-translate-y-1">
-            <Card recap={s.recap} idless />
-          </div>
-          <span className="font-pixel text-[10px] text-[#a3acb5] group-hover:text-[#eab308]">
-            {s.label.toUpperCase()} · {s.recap.repo}
-          </span>
+    <div className="deck">
+      {samples.map((s, i) => (
+        <Link
+          key={s.id}
+          href={`/r/${s.id}`}
+          className="deck-card"
+          aria-label={`${s.label} · ${s.recap.repo} — open this recap`}
+          // fan position: tilt from the centre, outer cards sit a little lower
+          style={{ "--i": i, "--r": `${(i - mid) * 8}deg`, "--y": `${(i - mid) ** 2 * 10}px` } as CSSProperties}
+        >
+          <Card recap={s.recap} idless />
+          <span className="deck-label font-pixel">{s.label.toUpperCase()} · {s.recap.repo}</span>
         </Link>
       ))}
     </div>
