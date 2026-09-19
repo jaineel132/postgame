@@ -3,7 +3,12 @@ import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { gitRoot, readGit } from './sources/git.js';
 import { readClaude } from './sources/claudeCode.js';
-import { byTime, lastSession } from './analyze/timeline.js';
+import { byTime, lastSession, activeMin } from './analyze/timeline.js';
+import { longestFlow } from './analyze/flow.js';
+import { bossFight } from './analyze/bossFight.js';
+import { bestStreak } from './analyze/streaks.js';
+import { fileStats } from './analyze/files.js';
+import { archetype } from './analyze/archetype.js';
 
 const HOUR = 3_600_000;
 const die = (msg) => { console.error(`postgame: ${msg}`); process.exit(1); };
@@ -49,40 +54,51 @@ if (!fixed) {
 const sc = session.filter((e) => e.type === 'commit');
 if (!sc.length) die(fixed ? 'no commits in that window.' : 'no session found — try --last 12, or --from <date> --to <date>.');
 
-// ---- raw stats (stage 4 heuristics come next) ----
-const start = session[0].ts, end = session.at(-1).ts;
+// ---- stage 4: derive ----
+const ai = claude?.ai;
+const breakMin = claude ? 30 : 120;
 const count = (type, pred = () => true) => session.filter((e) => e.type === type && pred(e)).length;
-const churn = {};
-for (const c of sc) for (const f of c.files) churn[f] = (churn[f] || 0) + c.fileLines[f];
-const gaps = sc.map((c, i) => Math.round((c.ts - (i ? sc[i - 1].ts : start)) / 60_000));
-const fmt = (d) => d.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+const boss = bossFight(session, breakMin, Boolean(claude));
+const files = fileStats(sc, boss?.file, ai?.claudeLinesAdded);
+const prompts = count('prompt');
 
-const out = {
-  repo: path.basename(root),
-  window: `${fmt(start)} → ${fmt(end)}`,
-  durationMin: Math.round((end - start) / 60_000),
+const stats = {
+  durationMin: activeMin(session, breakMin),
   commits: sc.length,
-  commitGapsMin: gaps,
-  filesTouched: Object.keys(churn).length,
-  linesChanged: sc.reduce((s, c) => s + c.lines, 0),
-  topFiles: Object.entries(churn).sort((a, b) => b[1] - a[1]).slice(0, 5),
+  filesTouched: files.filesTouched,
+  linesChanged: files.linesChanged,
+  longestFlowMin: claude ? longestFlow(session) : null,
+  failedCommands: claude ? count('command', (e) => e.failed) : null,
 };
-if (claude) {
-  Object.assign(out, {
-    prompts: count('prompt'),
-    turns: claude.ai.turns,
-    commands: count('command'),
-    failedCommands: count('command', (e) => e.failed),
-    edits: count('edit'),
-    interrupts: claude.ai.interrupts,
-    missedEdits: claude.ai.missedEdits,
-    rejectedTools: claude.ai.rejected,
-    busyMin: Math.round(claude.ai.busyMs / 60_000),
-    tokensOut: claude.ai.tokensOut,
-    compactions: claude.ai.compactions,
-    subagents: claude.ai.subagents,
-    model: claude.ai.model,
-  });
-} else out.claude = 'no Claude Code logs for this repo/window';
 
-console.log(out);
+// ---- stage 5: archetype ----
+const promptsPerCommit = claude ? Math.round((prompts / sc.length) * 10) / 10 : null;
+const title = archetype({
+  ...stats, bossFight: boss, promptsPerCommit,
+  claudeLinesPct: files.claudeLinesPct, interrupts: ai?.interrupts ?? null,
+});
+
+// ---- stage 6: payload (architecture.md §5 — frozen after hour 7) ----
+const payload = {
+  v: 1,
+  repo: path.basename(root),
+  startedAt: session[0].ts.toISOString(),
+  endedAt: session.at(-1).ts.toISOString(),
+  durationMin: stats.durationMin,
+  archetype: title,
+  stats: { commits: stats.commits, filesTouched: stats.filesTouched, linesChanged: stats.linesChanged,
+           longestFlowMin: stats.longestFlowMin, failedCommands: stats.failedCommands },
+  bossFight: boss,
+  streak: bestStreak(session),
+  mvpFile: files.mvpFile,
+  ai: claude ? {
+    available: true, source: 'claude-code', model: ai.model,
+    prompts, turns: ai.turns, promptsPerCommit,
+    interrupts: ai.interrupts, claudeLinesPct: files.claudeLinesPct,
+    busyMin: Math.round(ai.busyMs / 60_000), tokensOut: ai.tokensOut,
+    compactions: ai.compactions, subagents: ai.subagents, missedEdits: ai.missedEdits,
+  } : { available: false },
+};
+
+console.log(`\n  ${title.title}\n  ${title.subtitle}\n`);
+console.log(JSON.stringify(payload, null, 2));
