@@ -1,6 +1,5 @@
 import { activeMin } from './timeline.js';
-
-const top = (counts) => Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+import { pickFile } from './files.js';
 
 // Chunks are: session start → first commit, then commit → next commit.
 // The highest struggle score wins, if it lasted over 15 active minutes (prd.md §7).
@@ -24,7 +23,8 @@ export function bossFight(events, breakMin, hasClaude) {
       best = {
         score,
         minutes,
-        file: top(edits) ?? top(e.fileLines), // git-only: biggest file in the commit that ended it
+        // most-edited file (ties: more lines in the ending commit); git-only: biggest file in that commit
+        file: pickFile(edits, e.fileLines) ?? pickFile(e.fileLines),
         endedBy: e.message,
         failedCommands: hasClaude ? failed : null,
       };

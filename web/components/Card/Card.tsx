@@ -3,10 +3,11 @@ import type { Recap } from "./types";
 import { BigStats, BossFight, ClaudeStrip, Footer, Hero, SmallStats } from "./blocks";
 import { CARD_ID } from "./format";
 
-export default function Card({ recap }: { recap: Recap }) {
+// `idless` for extra cards on a page (gallery), so the PNG export only ever finds the main one.
+export default function Card({ recap, idless = false }: { recap: Recap; idless?: boolean }) {
   const ai = recap.ai.available ? recap.ai : null;
   return (
-    <div className="pg-frame" id={CARD_ID}>
+    <div className="pg-frame" id={idless ? undefined : CARD_ID}>
       <article className={`pg-card${ai ? "" : " git-only"}${!ai && !recap.bossFight ? " sparse" : ""}`}>
         <div className="recap px px-lg">
           <Hero repo={recap.repo} startedAt={recap.startedAt} archetype={recap.archetype} />

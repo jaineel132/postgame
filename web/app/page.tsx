@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Card from "@/components/Card/Card";
 import CopyCommand from "@/components/CopyCommand";
+import SampleGallery from "@/components/SampleGallery";
 import { Sword } from "@/components/Card/blocks";
 import type { Recap } from "@/components/Card/types";
 import { GITHUB_URL, NPM_URL, SAMPLE_ID } from "@/components/Card/format";
@@ -74,9 +75,18 @@ export default async function Home() {
 
         {sample && (
           <Link href={`/r/${SAMPLE_ID}`} aria-label="Open the sample recap" className="mx-auto w-full max-w-[420px]">
-            <Card recap={sample} />
+            <Card recap={sample} idless />
           </Link>
         )}
+      </section>
+
+      {/* Sample recaps — all real sessions */}
+      <section id="samples" className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <h2 className={heading}>SAMPLE RECAPS</h2>
+          <p className="text-[#a3acb5]">Real sessions, real numbers. Pick one to open the full card.</p>
+        </div>
+        <SampleGallery />
       </section>
 
       {/* How it works */}

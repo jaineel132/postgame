@@ -2,7 +2,14 @@ export const SITE = "postgame-pied.vercel.app";
 
 export const CARD_ID = "pg-card"; // the element the PNG export captures
 
-export const SAMPLE_ID = "x7jg9d"; // the agit Boss Fight card shown on the homepage
+// Real sessions shown as samples. The first one is the homepage hero card.
+export const SAMPLES = [
+  { id: "2zmnpw", label: "The Boss Fight" },
+  { id: "assdjz", label: "Deep Work" },
+  { id: "jup35n", label: "Autopilot" },
+  { id: "9iiq2n", label: "No Claude logs" },
+];
+export const SAMPLE_ID = SAMPLES[0].id;
 export const GITHUB_URL = "https://github.com/jaineel132/postgame";
 export const NPM_URL = "https://www.npmjs.com/package/postgame-cli";
 

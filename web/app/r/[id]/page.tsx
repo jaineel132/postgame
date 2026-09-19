@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import Card from "@/components/Card/Card";
 import CardActions from "@/components/Card/CardActions";
+import SampleGallery from "@/components/SampleGallery";
+import { SAMPLES } from "@/components/Card/format";
 import type { Recap } from "@/components/Card/types";
 import { redis, recapKey } from "@/lib/kv";
 
@@ -25,8 +27,10 @@ export async function generateMetadata({ params }: PageProps<"/r/[id]">): Promis
 }
 
 export default async function RecapPage({ params }: PageProps<"/r/[id]">) {
-  const recap = await getRecap((await params).id);
+  const { id } = await params;
+  const recap = await getRecap(id);
   if (!recap) notFound();
+  const isSample = SAMPLES.some((s) => s.id === id);
 
   return (
     <main className="flex flex-1 flex-col items-center gap-6 px-4 py-8 sm:py-12">
@@ -38,6 +42,14 @@ export default async function RecapPage({ params }: PageProps<"/r/[id]">) {
       <p className="text-sm text-[#a3acb5]">
         Make your own: <code className="text-[#eab308]">npx postgame-cli</code>
       </p>
+
+      {/* Samples link to each other, so a visitor can flip through them */}
+      {isSample && (
+        <section className="flex w-full max-w-5xl flex-col gap-6 pt-12">
+          <h2 className="font-pixel text-sm text-[#10b981]">MORE SAMPLE RECAPS</h2>
+          <SampleGallery current={id} />
+        </section>
+      )}
     </main>
   );
 }

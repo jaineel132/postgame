@@ -3,11 +3,11 @@
 **Spotify Wrapped for a single coding session.** Built from your git history and your Claude Code logs, and nothing leaves your machine but numbers and names.
 
 <p align="center">
-  <img src="docs/card.png" alt="A postgame recap card: The Boss Fight — 143 minutes on phase2.md" width="480">
+  <img src="docs/card.png" alt="A postgame recap card: The Boss Fight — 143 minutes on nodes.py" width="480">
 </p>
 
 <p align="center">
-  <a href="https://postgame-pied.vercel.app/r/x7jg9d"><b>▶ See a sample recap</b></a>
+  <a href="https://postgame-pied.vercel.app/r/2zmnpw"><b>▶ See a sample recap</b></a>
 </p>
 
 ```
