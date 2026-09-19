@@ -13,9 +13,13 @@ const getRecap = cache(async (id: string) =>
 export async function generateMetadata({ params }: PageProps<"/r/[id]">): Promise<Metadata> {
   const recap = await getRecap((await params).id);
   if (!recap) return { title: "No recap here — postgame" };
+  const title = `${recap.archetype.title} · ${recap.repo} — postgame`;
+  const description = recap.archetype.subtitle;
   return {
-    title: `${recap.archetype.title} · ${recap.repo} — postgame`,
-    description: recap.archetype.subtitle,
+    title,
+    description,
+    openGraph: { title, description, type: "website" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { SITE } from "@/components/Card/format";
 import "./globals.css";
 
 const mono = JetBrains_Mono({
@@ -15,6 +16,7 @@ const pixel = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://${SITE}`), // link previews need absolute image URLs
   title: "postgame",
   description: "Spotify Wrapped for a single coding session.",
 };
