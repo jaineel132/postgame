@@ -1,6 +1,6 @@
 {
   "name": "postgame-cli",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Spotify Wrapped for a single coding session — a shareable recap card from your git history and Claude Code logs.",
   "keywords": ["git", "claude-code", "recap", "wrapped", "developer", "cli", "session"],
   "type": "module",
@@ -11,7 +11,8 @@
     "index.js",
     "sources",
     "analyze",
-    "upload.js"
+    "upload.js",
+    "history.js"
   ],
   "engines": {
     "node": ">=18"

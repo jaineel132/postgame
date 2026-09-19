@@ -35,6 +35,8 @@ It's a highlight reel, not a report card. No scores, no productivity grading.
 | `npx postgame-cli --from 2026-09-15T10:00 --to 2026-09-15T18:00` | Recap a past window |
 | `npx postgame-cli --dry-run` | Show exactly what would be uploaded, and upload nothing |
 | `npx postgame-cli --name "My Project"` | Show a different project name on the card (default: the folder name) |
+| `npx postgame-cli --list` | List your recent sessions, each with the command that recaps it |
+| `npx postgame-cli --history` | List the cards you already made on this machine, with their links |
 
 No Claude Code logs for your repo? It still works, with a git-only card.
 

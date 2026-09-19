@@ -16,6 +16,8 @@ The card shows the story of the session: your **boss fight** (the hardest stretc
 | `--from <date> --to <date>` | Recap a past window, e.g. `--from 2026-09-15T10:00 --to 2026-09-15T18:00` |
 | `--dry-run` | Print exactly what would be uploaded, and upload nothing |
 | `--name <text>` | Show a different project name on the card (default: the folder name) |
+| `--list` | List your recent sessions, each with the command that recaps it |
+| `--history` | List the cards you already made on this machine (saved in `~/.postgame`) |
 
 With no flags it picks your most recent session with a commit in it (a pause of 30+ minutes ends a session).
 
