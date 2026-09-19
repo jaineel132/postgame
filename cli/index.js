@@ -79,12 +79,20 @@ const title = archetype({
   claudeLinesPct: files.claudeLinesPct, interrupts: ai?.interrupts ?? null,
 });
 
+// "2026-09-19T14:07:00+05:30" — keeps the user's own clock, so the card shows the right date.
+const localIso = (d) => {
+  const off = -d.getTimezoneOffset();
+  const pad = (n) => String(Math.floor(Math.abs(n))).padStart(2, '0');
+  const local = new Date(d.getTime() + off * 60_000).toISOString().slice(0, 19);
+  return `${local}${off >= 0 ? '+' : '-'}${pad(off / 60)}:${pad(off % 60)}`;
+};
+
 // ---- stage 6: payload (architecture.md §5 — frozen after hour 7) ----
 const payload = {
   v: 1,
   repo: path.basename(root),
-  startedAt: session[0].ts.toISOString(),
-  endedAt: session.at(-1).ts.toISOString(),
+  startedAt: localIso(session[0].ts),
+  endedAt: localIso(session.at(-1).ts),
   durationMin: stats.durationMin,
   archetype: title,
   stats: { commits: stats.commits, filesTouched: stats.filesTouched, linesChanged: stats.linesChanged,

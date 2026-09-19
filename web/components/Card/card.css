@@ -1,0 +1,126 @@
+/* Ported from the 1-final.html design. Everything is sized in --u = 1/1080 of the card's width,
+   so the card keeps its exact look at any size (phone, laptop, PNG export). */
+
+.pg-frame { container-type: inline-size; width: 100%; }
+
+.pg-card {
+  --u: calc(100cqw / 1080);
+  --bg: #091310; --text: #f8fafc; --gold: #eab308; --emerald: #10b981;
+  --panel: #12221c; --line: #2f4a40; --muted: #a3acb5; --dim: #8b95a1;
+  --gold-dark: #854d0e; --ink: #1c1206; --ink-soft: #713f12;
+  --emerald-dark: #0b7a57; --emerald-bg: #0c2a20;
+  --red: #ef4444; --red-text: #fca5a5; --red-bg: #2a0a0a;
+
+  width: 100%; aspect-ratio: 1080 / 1350; padding: calc(12 * var(--u)); display: flex;
+  color: var(--text); font-family: var(--font-jb), monospace; line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+}
+.pg-card * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Pixel corners — 2-step staircase with box-shadow only (works in the OG generator too).
+   Set --fill (inside) and --bd (border). The border draws outside the box. */
+.pg-card .px {
+  --p: calc(4 * var(--u));
+  background: var(--fill);
+  box-shadow:
+    0 calc(var(--p) * -1) 0 0 var(--fill), 0 var(--p) 0 0 var(--fill),
+    calc(var(--p) * -1) 0 0 0 var(--fill), var(--p) 0 0 0 var(--fill),
+    0 calc(var(--p) * -2) 0 0 var(--bd), 0 calc(var(--p) * 2) 0 0 var(--bd),
+    calc(var(--p) * -2) 0 0 0 var(--bd), calc(var(--p) * 2) 0 0 0 var(--bd),
+    var(--p) var(--p) 0 0 var(--bd), calc(var(--p) * -1) var(--p) 0 0 var(--bd),
+    var(--p) calc(var(--p) * -1) 0 0 var(--bd), calc(var(--p) * -1) calc(var(--p) * -1) 0 0 var(--bd);
+}
+.pg-card .px-lg { --p: calc(6 * var(--u)); }
+
+/* Press Start 2P has one weight only — never set font-weight on it */
+.pg-card .pixel { font-family: var(--font-pixel), monospace; font-weight: 400; }
+.pg-card .sword { width: calc(26 * var(--u)); height: calc(26 * var(--u)); fill: currentColor; flex: none; }
+
+.pg-card .recap {
+  --fill: var(--bg); --bd: var(--gold);
+  flex: 1; min-width: 0; padding: calc(52 * var(--u)) calc(58 * var(--u));
+  display: flex; flex-direction: column; justify-content: space-between;
+  background-image: radial-gradient(#1a2a22 calc(1.5 * var(--u)), transparent calc(1.5 * var(--u)));
+  background-size: calc(32 * var(--u)) calc(32 * var(--u));
+  font-variant-numeric: tabular-nums;
+}
+
+.pg-card .top-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: calc(20 * var(--u)); border-bottom: calc(2 * var(--u)) dashed var(--line);
+  font-size: calc(22 * var(--u)); color: var(--muted);
+}
+.pg-card .brand { display: flex; align-items: center; gap: calc(14 * var(--u)); font-size: calc(20 * var(--u)); color: var(--gold); }
+
+.pg-card .hero { display: flex; flex-direction: column; gap: calc(18 * var(--u)); }
+.pg-card .archetype-title {
+  font-size: calc(46 * var(--u)); line-height: 1.35; text-transform: uppercase; color: var(--gold);
+  text-shadow: calc(4 * var(--u)) calc(4 * var(--u)) 0 #000;
+}
+.pg-card .subtitle { font-size: calc(24 * var(--u)); font-weight: 500; color: var(--emerald); }
+
+.pg-card .big-stats {
+  --fill: var(--panel); --bd: var(--line);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(20 * var(--u));
+  padding: calc(28 * var(--u)) calc(30 * var(--u));
+}
+.pg-card .stat { display: flex; flex-direction: column; gap: calc(14 * var(--u)); }
+.pg-card .stat .num { font-size: calc(34 * var(--u)); line-height: 1; }
+.pg-card .stat .lbl { font-size: calc(15 * var(--u)); font-weight: 700; letter-spacing: calc(1.5 * var(--u)); color: var(--muted); }
+
+/* BOSS FIGHT — solid gold loot panel, dark text */
+.pg-card .boss-fight {
+  --fill: var(--gold); --bd: var(--gold-dark);
+  position: relative; height: calc(380 * var(--u)); padding: calc(38 * var(--u)) calc(40 * var(--u)) calc(34 * var(--u));
+  color: var(--ink); display: flex; flex-direction: column; justify-content: space-between;
+}
+.pg-card.git-only .boss-fight { height: calc(400 * var(--u)); }
+.pg-card .cleared {
+  --fill: var(--bg); --bd: var(--gold);
+  position: absolute; top: calc(-20 * var(--u)); right: calc(44 * var(--u));
+  font-size: calc(13 * var(--u)); color: var(--gold); padding: calc(7 * var(--u)) calc(14 * var(--u));
+}
+.pg-card .boss-head { display: flex; align-items: center; gap: calc(14 * var(--u)); font-size: calc(20 * var(--u)); }
+.pg-card .boss-body { display: flex; align-items: center; gap: calc(36 * var(--u)); min-width: 0; }
+.pg-card .boss-min { display: flex; align-items: baseline; gap: calc(12 * var(--u)); flex: none; }
+.pg-card .boss-min .n { font-size: calc(88 * var(--u)); line-height: 1; color: var(--ink); }
+.pg-card .boss-min .u { font-size: calc(32 * var(--u)); font-weight: 700; color: var(--ink-soft); }
+.pg-card .boss-details { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: calc(18 * var(--u)); }
+/* Long paths shorten the folder part, never the file name */
+.pg-card .centred { display: flex; max-width: 100%; font-size: calc(22 * var(--u)); color: var(--ink-soft); white-space: pre; }
+.pg-card .centred .dir { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pg-card .centred .file { flex: none; max-width: 100%; overflow: hidden; text-overflow: ellipsis; color: var(--ink); font-weight: 700; }
+.pg-card .failed { --fill: var(--red-bg); --bd: var(--red); font-size: calc(18 * var(--u)); font-weight: 700; color: var(--red-text); padding: calc(6 * var(--u)) calc(14 * var(--u)); }
+.pg-card .ended {
+  --fill: var(--bg); --bd: var(--gold-dark);
+  display: flex; gap: calc(12 * var(--u)); padding: calc(14 * var(--u)) calc(20 * var(--u));
+  font-size: calc(20 * var(--u)); color: var(--muted); white-space: nowrap; overflow: hidden;
+}
+.pg-card .ended .msg { min-width: 0; color: var(--text); font-style: italic; overflow: hidden; text-overflow: ellipsis; }
+
+.pg-card .no-boss {
+  --fill: var(--emerald-bg); --bd: var(--emerald);
+  height: calc(88 * var(--u)); padding: 0 calc(32 * var(--u)); display: flex; align-items: center; gap: calc(18 * var(--u));
+  font-size: calc(22 * var(--u)); color: var(--emerald);
+}
+.pg-card .no-boss .pixel { font-size: calc(18 * var(--u)); }
+
+.pg-card .claude-strip { --fill: var(--panel); --bd: var(--emerald-dark); padding: calc(26 * var(--u)) calc(30 * var(--u)); display: flex; flex-direction: column; gap: calc(20 * var(--u)); }
+.pg-card .claude-head { font-size: calc(16 * var(--u)); color: var(--emerald); }
+.pg-card .claude-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(20 * var(--u)); }
+.pg-card .claude-item { display: flex; flex-direction: column; gap: calc(12 * var(--u)); }
+.pg-card .claude-item .val { font-size: calc(30 * var(--u)); line-height: 1; }
+.pg-card .claude-item .desc { font-size: calc(16 * var(--u)); line-height: 1.3; color: var(--muted); }
+
+.pg-card .small-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: calc(24 * var(--u)); }
+.pg-card .small-stats.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pg-card .small { --fill: var(--panel); --bd: var(--line); padding: calc(16 * var(--u)) calc(18 * var(--u)); display: flex; flex-direction: column; gap: calc(6 * var(--u)); min-width: 0; }
+.pg-card .s-lbl { font-size: calc(14 * var(--u)); font-weight: 700; letter-spacing: calc(1 * var(--u)); color: var(--dim); }
+.pg-card .s-val { font-size: calc(24 * var(--u)); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pg-card .s-sub { font-size: calc(15 * var(--u)); color: var(--muted); }
+
+.pg-card .footer {
+  display: flex; justify-content: space-between; padding-top: calc(20 * var(--u));
+  border-top: calc(2 * var(--u)) dashed var(--line); font-size: calc(18 * var(--u)); color: var(--dim);
+}
+.pg-card .footer .cmd { color: var(--muted); font-weight: 500; }
