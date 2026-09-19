@@ -9,12 +9,25 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-mono: var(--font-mono);
-  --font-pixel: var(--font-pixel);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-mono), monospace;
+  font-family: var(--font-jb), monospace;
+}
+
+.font-pixel { font-family: var(--font-pixel), monospace; font-weight: 400; }
+
+/* Pixel-corner box for the site pages (fixed 4px steps). Set --fill and --bd. */
+.pg-px {
+  --p: 4px;
+  background: var(--fill);
+  box-shadow:
+    0 calc(var(--p) * -1) 0 0 var(--fill), 0 var(--p) 0 0 var(--fill),
+    calc(var(--p) * -1) 0 0 0 var(--fill), var(--p) 0 0 0 var(--fill),
+    0 calc(var(--p) * -2) 0 0 var(--bd), 0 calc(var(--p) * 2) 0 0 var(--bd),
+    calc(var(--p) * -2) 0 0 0 var(--bd), calc(var(--p) * 2) 0 0 0 var(--bd),
+    var(--p) var(--p) 0 0 var(--bd), calc(var(--p) * -1) var(--p) 0 0 var(--bd),
+    var(--p) calc(var(--p) * -1) 0 0 var(--bd), calc(var(--p) * -1) calc(var(--p) * -1) 0 0 var(--bd);
 }
