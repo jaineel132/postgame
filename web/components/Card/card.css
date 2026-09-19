@@ -79,6 +79,13 @@
   color: var(--ink); display: flex; flex-direction: column; justify-content: space-between;
 }
 .pg-card.git-only .boss-fight { height: calc(400 * var(--u)); }
+
+/* Git-only with no boss fight: the "no boss" bar takes the boss panel's space so the card doesn't look empty */
+.pg-card.sparse .no-boss {
+  height: calc(360 * var(--u)); flex-direction: column; justify-content: center; align-items: flex-start;
+  gap: calc(22 * var(--u)); padding: 0 calc(44 * var(--u)); font-size: calc(26 * var(--u));
+}
+.pg-card.sparse .no-boss .pixel { font-size: calc(40 * var(--u)); line-height: 1.3; }
 .pg-card .cleared {
   --fill: var(--bg); --bd: var(--gold);
   position: absolute; top: calc(-20 * var(--u)); right: calc(44 * var(--u));

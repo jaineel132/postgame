@@ -7,7 +7,7 @@ export default function Card({ recap }: { recap: Recap }) {
   const ai = recap.ai.available ? recap.ai : null;
   return (
     <div className="pg-frame" id={CARD_ID}>
-      <article className={`pg-card${ai ? "" : " git-only"}`}>
+      <article className={`pg-card${ai ? "" : " git-only"}${!ai && !recap.bossFight ? " sparse" : ""}`}>
         <div className="recap px px-lg">
           <Hero repo={recap.repo} startedAt={recap.startedAt} archetype={recap.archetype} />
           <BigStats durationMin={recap.durationMin} stats={recap.stats} />
