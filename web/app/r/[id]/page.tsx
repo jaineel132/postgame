@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import Card from "@/components/Card/Card";
 import CardActions from "@/components/Card/CardActions";
+import { Sword } from "@/components/Card/blocks";
 import SampleGallery from "@/components/SampleGallery";
 import { SAMPLES } from "@/components/Card/format";
 import type { Recap } from "@/components/Card/types";
@@ -35,13 +36,24 @@ export default async function RecapPage({ params }: PageProps<"/r/[id]">) {
   return (
     <main className="flex flex-1 flex-col items-center gap-6 px-4 py-8 sm:py-12">
       {/* fit the whole card on screen: 600px wide at most, or less if the window is short */}
-      <div className="w-full max-w-[min(600px,calc((100svh-7rem)*0.8))] min-w-[280px]">
-        <Card recap={recap} />
+      <div className="reveal w-full max-w-[min(600px,calc((100svh-7rem)*0.8))] min-w-[280px]">
+        {/* the card lands face down, then flips over (CSS: .reveal in globals.css) */}
+        <div className="reveal-inner">
+          <div className="reveal-back pg-px" aria-hidden="true">
+            <span className="text-[#eab308] [&_svg]:h-[22cqw] [&_svg]:w-[22cqw] [&_svg]:fill-current"><Sword /></span>
+            <span className="font-pixel text-[5cqw] text-[#eab308]">POSTGAME</span>
+          </div>
+          <div className="reveal-front">
+            <Card recap={recap} />
+          </div>
+        </div>
       </div>
-      <CardActions fileName={`postgame-${recap.repo.replace(/[^\w.-]+/g, "-")}-${recap.startedAt.slice(0, 10)}.png`} />
-      <p className="text-sm text-[#a3acb5]">
-        Make your own: <code className="text-[#eab308]">npx postgame-cli</code>
-      </p>
+      <div className="reveal-after flex flex-col items-center gap-6">
+        <CardActions fileName={`postgame-${recap.repo.replace(/[^\w.-]+/g, "-")}-${recap.startedAt.slice(0, 10)}.png`} />
+        <p className="text-sm text-[#a3acb5]">
+          Make your own: <code className="text-[#eab308]">npx postgame-cli</code>
+        </p>
+      </div>
 
       {/* Samples link to each other, so a visitor can flip through them */}
       {isSample && (

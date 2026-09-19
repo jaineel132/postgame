@@ -69,8 +69,28 @@ body {
   .deck-card:first-child { margin-left: 0; }
 }
 
+/* ---- Recap page: the card lands face down, then flips over ---- */
+.reveal { perspective: 1800px; container-type: inline-size; }
+.reveal-inner {
+  position: relative; transform-style: preserve-3d;
+  animation: flip 1s cubic-bezier(.3, 1.35, .55, 1) .35s both;   /* slight overshoot, then settles */
+}
+@keyframes flip { from { transform: rotateY(180deg); } }
+.reveal-front, .reveal-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.reveal-back {
+  --fill: #091310; --bd: #eab308;
+  position: absolute; inset: 1.2%; transform: rotateY(180deg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6cqw;
+}
+.reveal-back.pg-px { /* after .pg-px sets background */
+  background-image: radial-gradient(#1a2a22 1.5px, transparent 1.5px); background-size: 16px 16px;
+}
+/* buttons appear once the card has turned */
+.reveal-after { animation: fade-up .5s ease 1.25s both; }
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } }
+
 @media (prefers-reduced-motion: reduce) {
-  .deck-card { animation: none; transition: none; }
+  .deck-card, .reveal-inner, .reveal-after { animation: none; transition: none; }
 }
 
 /* Pixel-corner box for the site pages (fixed 4px steps). Set --fill and --bd. */
