@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://postgame-pied.vercel.app/r/h6fegm"><b>▶ See a sample recap</b></a>
+  <a href="https://postgame-pied.vercel.app/r/xa8mww"><b>▶ See a sample recap</b></a>
 </p>
 
 ```

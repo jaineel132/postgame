@@ -4,10 +4,10 @@ export const CARD_ID = "pg-card"; // the element the PNG export captures
 
 // Real sessions shown as samples. The first one is the homepage hero card.
 export const SAMPLES = [
-  { id: "h6fegm", label: "The Boss Fight" },
-  { id: "g7we24", label: "Deep Work" },
-  { id: "jup35n", label: "Autopilot" },
-  { id: "qpwcsh", label: "No Claude logs" },
+  { id: "xa8mww", label: "The Boss Fight" },
+  { id: "y97cmn", label: "Deep Work" },
+  { id: "ihfgwn", label: "Autopilot" },
+  { id: "4mqs9u", label: "No Claude logs" },
 ];
 export const SAMPLE_ID = SAMPLES[0].id;
 export const GITHUB_URL = "https://github.com/jaineel132/postgame";
