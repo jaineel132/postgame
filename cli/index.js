@@ -9,6 +9,7 @@ import { bossFight } from './analyze/bossFight.js';
 import { bestStreak } from './analyze/streaks.js';
 import { fileStats } from './analyze/files.js';
 import { archetype } from './analyze/archetype.js';
+import { upload } from './upload.js';
 
 const HOUR = 3_600_000;
 const die = (msg) => { console.error(`postgame: ${msg}`); process.exit(1); };
@@ -101,4 +102,17 @@ const payload = {
 };
 
 console.log(`\n  ${title.title}\n  ${title.subtitle}\n`);
-console.log(JSON.stringify(payload, null, 2));
+
+if (values['dry-run']) {
+  console.log('Dry run — this is exactly what would be uploaded (numbers and names only, no code or prompts):\n');
+  console.log(JSON.stringify(payload, null, 2));
+  process.exit(0);
+}
+
+try {
+  console.log(`  Your recap → ${await upload(payload)}\n`);
+} catch (e) {
+  console.error(`postgame: upload failed (${e.message}). Here is your recap data so nothing is lost:\n`);
+  console.log(JSON.stringify(payload, null, 2));
+  process.exit(1);
+}
