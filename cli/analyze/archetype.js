@@ -11,23 +11,23 @@ export function archetype(s) {
   const rules = [
     ['The Boss Fight', boss > 40, () =>
       `${boss} minutes on ${base(s.bossFight.file) ?? 'one fight'}` +
-      (s.bossFight.failedCommands ? `, ${plural(s.bossFight.failedCommands, 'failed command')}` : '') + ', and you won.'],
+      (s.bossFight.failedCommands ? `, ${plural(s.bossFight.failedCommands, 'failed command')}` : '') + ', and it blinked first.'],
     ['Death by a Thousand Cuts', has(s.failedCommands) && s.failedCommands > 12 && boss < 20, () =>
-      `${s.failedCommands} failed commands, and not one of them stopped you.`],
+      `${s.failedCommands} failures, none of them interesting.`],
     ['Clean Sweep', s.commits >= 4 && (!has(s.failedCommands) || s.failedCommands <= 2), () =>
-      `${s.commits} commits in ${duration(s.durationMin)}, barely a stumble.`],
+      `${s.commits} commits in ${duration(s.durationMin)}. Suspiciously smooth.`],
     ['Autopilot', has(s.claudeLinesPct) && s.claudeLinesPct > 80 && s.interrupts <= 1, () =>
-      `Claude wrote ${s.claudeLinesPct}% of the lines. You just steered.`],
+      `Claude wrote ${s.claudeLinesPct}% of it. You supervised, heroically.`],
     ['Backseat Driver', has(s.interrupts) && s.interrupts >= 6, () =>
-      `You stopped Claude ${s.interrupts} times. It listened.`],
+      `You hit stop ${s.interrupts} times. Trust issues, vindicated.`],
     ['Deep Work', has(s.longestFlowMin) && s.longestFlowMin > 25, () =>
-      `${s.longestFlowMin} minutes locked in without breaking stride.`],
+      `${s.longestFlowMin} straight minutes. Nobody messaged you. Miracle.`],
     ['The Scattergun', s.filesTouched > 12 && s.commits <= 2, () =>
-      `${s.filesTouched} files touched, ${plural(s.commits, 'commit')} to show for it.`],
+      `${s.filesTouched} files open, ${plural(s.commits, 'commit')} landed. Ambitious.`],
     ['Vibe Coded', has(s.promptsPerCommit) && s.promptsPerCommit > 8, () =>
-      `${s.promptsPerCommit} prompts for every commit. Pure vibes.`],
+      `${s.promptsPerCommit} prompts per commit. Vibes: immaculate.`],
     ['The Grind', true, () =>
-      `${s.durationMin ? `${duration(s.durationMin)}, ` : ''}${plural(s.commits, 'commit')}, one step at a time.`],
+      `${s.durationMin ? `${duration(s.durationMin)}, ` : ''}${plural(s.commits, 'commit')}. No highlights, all footage.`],
   ];
   const [title, , subtitle] = rules.find(([, match]) => match);
   return { title, subtitle: subtitle() };
