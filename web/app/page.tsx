@@ -89,6 +89,24 @@ export default async function Home() {
         <SampleGallery />
       </section>
 
+      {/* Demo video — the file lives in web/public and is linked from the README too */}
+      <section className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <h2 className={heading}>SEE IT RUN</h2>
+          <p className="text-[#a3acb5]">One command, a link, and the card turns over.</p>
+        </div>
+        <div className="pg-px overflow-hidden p-2 [--bd:#2f4a40] [--fill:#12221c]">
+          <video
+            src="/demo-video.mp4"
+            poster="/demo-poster.png"
+            controls
+            preload="none"
+            playsInline
+            className="w-full"
+          />
+        </div>
+      </section>
+
       {/* How it works */}
       <section className="flex flex-col gap-6">
         <h2 className={heading}>HOW IT WORKS</h2>

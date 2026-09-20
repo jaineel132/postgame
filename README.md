@@ -13,10 +13,14 @@
 </p>
 
 <p align="center">
-  <a href="https://postgame-pied.vercel.app/r/xa8mww"><b>▶ See a sample recap</b></a> ·
+  <a href="https://postgame-pied.vercel.app/r/xa8mww"><b>See a sample recap</b></a> ·
   <a href="https://postgame-pied.vercel.app"><b>Live site</b></a> ·
   <a href="https://www.npmjs.com/package/postgame-cli"><b>npm</b></a>
 </p>
+
+### Demo
+
+https://github.com/user-attachments/assets/069150eb-db8b-4807-9b46-dac434d2bced
 
 ```
 npx postgame-cli
