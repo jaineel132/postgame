@@ -98,11 +98,10 @@ export default async function Home() {
         <div className="pg-px overflow-hidden p-2 [--bd:#2f4a40] [--fill:#12221c]">
           <video
             src="/demo-video.mp4"
-            poster="/demo-poster.png"
             controls
-            preload="none"
+            preload="metadata"
             playsInline
-            className="w-full"
+            className="aspect-video w-full bg-black"
           />
         </div>
       </section>
