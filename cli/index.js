@@ -140,9 +140,9 @@ const payload = {
   } : { available: false },
 };
 
-console.log(`\n  ${title.title}\n  ${title.subtitle}\n`);
-
+// The title stays secret until the card flips — except on a dry run, where there's no card to open.
 if (values['dry-run']) {
+  console.log(`\n  ${title.title}\n  ${title.subtitle}\n`);
   console.log('Dry run — this is exactly what would be uploaded (numbers and names only, no code or prompts):\n');
   console.log(JSON.stringify(payload, null, 2));
   process.exit(0);
@@ -151,9 +151,10 @@ if (values['dry-run']) {
 try {
   const url = await upload(payload);
   saveCard({ date: payload.startedAt, repo: name, title: title.title, url });
-  console.log(`  Your recap → ${url}\n`);
+  console.log(`\n  Your recap → ${url}\n  Open it to see what you got.\n`);
 } catch (e) {
   console.error(`postgame: upload failed (${e.message}). Here is your recap data so nothing is lost:\n`);
+  console.log(`\n  ${title.title}\n  ${title.subtitle}\n`);
   console.log(JSON.stringify(payload, null, 2));
   process.exit(1);
 }
